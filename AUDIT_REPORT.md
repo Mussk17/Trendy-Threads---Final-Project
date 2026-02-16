@@ -4,16 +4,9 @@
 **Scope:** Full-stack e-commerce web application (Django, Stripe, AWS Bedrock RAG)  
 **Purpose:** Academic portfolio / demonstration project
 
----
-
-## 1. Issues Found Report
 
 
----
-
-
-
-## 4. Testing Guide
+## 1. Testing Guide
 
 
 ---
@@ -79,7 +72,7 @@
 
 ---
 
-## 7. Code Organization Map
+## 3. Code Organization Map
 
 ```
 trendy-threads/
