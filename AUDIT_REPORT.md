@@ -34,12 +34,11 @@ chatbot/    → AWS Bedrock RAG logic
 config/     → Project settings  
 
 
-
 I structured the project this way to keep responsibilities separate and make the code easier to manage and understand.
 
 ---
 
-## 🔐 Security Review  
+## Security Review  
 
 Since this is an e-commerce system, security was one of the main considerations during development.
 
@@ -111,7 +110,7 @@ The application includes:
 
 ---
 
-## 🤖 AI & Cloud Integration  
+## AI & Cloud Integration  
 
 The chatbot uses AWS Bedrock with Retrieval-Augmented Generation (RAG).
 
@@ -133,7 +132,7 @@ Security considerations:
 
 ---
 
-## 🔎 Threat Model (Basic Overview)  
+## Threat Model (Basic Overview)  
 
 ### Main Assets  
 
@@ -161,12 +160,12 @@ Security considerations:
 
 ---
 
-## 🗄️ Database & Data Handling  
+## Database & Data Handling  
 
 The project uses:
 
 - SQLite for development  
-- PostgreSQL recommended for production  
+- PostgreSQL/Aurora (recommended for production)
 
 Main relational models include:
 
@@ -186,7 +185,7 @@ This shows understanding of both traditional relational databases and modern clo
 
 ---
 
-## 🚀 Production Considerations  
+## Production Considerations  
 
 If deployed to production, the following should be done:
 
@@ -202,7 +201,7 @@ These improvements would make the system more secure for real-world usage.
 
 ---
 
-## 📊 Final Reflection  
+## Final Reflection  
 
 Overall, this project demonstrates:
 
