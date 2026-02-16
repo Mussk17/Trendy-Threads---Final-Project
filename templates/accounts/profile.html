@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Account – Trendy Threads{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="account-page">
+  <h1 class="page-title mb-4">My Account</h1>
+
+  <div class="account-layout">
+    <nav class="account-sidebar" aria-label="Account sections">
+      <a href="#details" class="account-nav-link active" data-section="details">
+        <span class="account-nav-icon" aria-hidden="true">👤</span>
+        <span>My details</span>
+      </a>
+      <a href="#orders" class="account-nav-link" data-section="orders">
+        <span class="account-nav-icon" aria-hidden="true">🛒</span>
+        <span>My orders</span>
+      </a>
+      <a href="#addressbook" class="account-nav-link" data-section="addressbook">
+        <span class="account-nav-icon" aria-hidden="true">📍</span>
+        <span>My address book</span>
+      </a>
+      <a href="#settings" class="account-nav-link" data-section="settings">
+        <span class="account-nav-icon" aria-hidden="true">⚙️</span>
+        <span>Account settings</span>
+      </a>
+    </nav>
+
+    <div class="account-main">
+      <!-- My details -->
+      <section id="details" class="account-section">
+        <h2 class="account-section-title">My details</h2>
+
+        <div class="account-card">
+          <h3 class="account-subtitle">Personal information</h3>
+          <p class="account-desc text-muted small">Update your name and contact details. We'll use these for order communications.</p>
+          <form method="post" action="{% url 'accounts:profile' %}#details" class="account-form">
+            {% csrf_token %}
+            <input type="hidden" name="section" value="details">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">First name</label>
+                <input type="text" name="first_name" class="form-control" value="{{ details_form.instance.first_name|default:'' }}" placeholder="First name" maxlength="150">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Last name</label>
+                <input type="text" name="last_name" class="form-control" value="{{ details_form.instance.last_name|default:'' }}" placeholder="Last name" maxlength="150">
+              </div>
+              <div class="col-12">
+                <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Birth date</label>
+                <input type="date" name="date_of_birth" class="form-control" value="{{ profile_obj.date_of_birth|date:'Y-m-d'|default:'' }}" placeholder="dd/mm/yy">
+              </div>
+              <div class="col-12">
+                <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Phone number</label>
+                <input type="tel" name="phone" class="form-control" value="{{ profile_obj.phone|default:'' }}" placeholder="123456789" maxlength="20">
+                <p class="form-text small text-muted">Keep 9-digit format with no spaces and dashes.</p>
+              </div>
+              <div class="col-12">
+                <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">E-mail address</label>
+                <input type="email" name="email" class="form-control" value="{{ details_form.instance.email|default:'' }}" required placeholder="email@example.com">
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- My orders -->
+      <section id="orders" class="account-section" hidden>
+        <h2 class="account-section-title">My orders</h2>
+        {% if orders %}
+          {% for order in orders %}
+          <div class="account-card mb-3">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+              <div>
+                <h3 class="h6 mb-1">Order #{{ order.id }}</h3>
+                <p class="text-muted small mb-0">Placed on {{ order.created_at|date:"F d, Y" }}</p>
+              </div>
+              <div class="text-md-end">
+                <p class="h6 mb-1" style="color: var(--text);">${{ order.total }}</p>
+                <span class="badge {% if order.status == 'paid' %}bg-dark{% elif order.status == 'shipped' %}bg-secondary{% elif order.status == 'delivered' %}bg-dark{% else %}bg-secondary text-dark{% endif %}">{{ order.get_status_display }}</span>
+              </div>
+            </div>
+            <hr>
+            <h4 class="small fw-semibold mb-2">Items</h4>
+            <ul class="list-unstyled mb-0">
+              {% for item in order.items.all %}
+              <li class="d-flex justify-content-between py-2 border-bottom">
+                <span class="small">{{ item.product_name }} — {{ item.size }} / {{ item.color }} (Qty: {{ item.quantity }})</span>
+                <span class="fw-medium small">${{ item.get_subtotal }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="account-card text-center py-5">
+            <p class="text-muted mb-3">You haven't placed any orders yet.</p>
+            <a href="{% url 'products:product_list' %}" class="btn">Start shopping</a>
+          </div>
+        {% endif %}
+      </section>
+
+      <!-- My address book -->
+      <section id="addressbook" class="account-section" hidden>
+        <h2 class="account-section-title">My address book</h2>
+        <p class="account-desc text-muted small mb-3">Save delivery addresses for faster checkout.</p>
+
+        {% if addresses %}
+          <div class="address-list">
+            {% for address in addresses %}
+            <div class="account-card address-card">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div>
+                  <span class="address-label fw-semibold">{{ address.label }}</span>
+                  {% if address.is_default %}<span class="badge bg-dark ms-2">Default</span>{% endif %}
+                </div>
+                <div class="address-actions d-flex gap-2 flex-wrap">
+                  {% if not address.is_default %}
+                  <form action="{% url 'accounts:address_set_default' address.pk %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline btn-sm">Set as default</button>
+                  </form>
+                  {% endif %}
+                  <a href="{% url 'accounts:address_edit' address.pk %}" class="btn btn-outline btn-sm">Edit</a>
+                  <form action="{% url 'accounts:address_delete' address.pk %}" method="post" class="d-inline" onsubmit="return confirm('Remove this address?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link btn-sm text-danger p-0">Remove</button>
+                  </form>
+                </div>
+              </div>
+              <div class="address-body mt-2">
+                <p class="mb-1">{{ address.first_name }} {{ address.last_name }}</p>
+                <p class="mb-1 text-muted small">{{ address.address_line1 }}{% if address.address_line2 %}, {{ address.address_line2 }}{% endif %}</p>
+                <p class="mb-0 text-muted small">{{ address.city }}, {{ address.state }} {{ address.postal_code }}, {{ address.country }}</p>
+                {% if address.phone %}<p class="mb-0 small mt-1">Tel: {{ address.phone }}</p>{% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="account-card text-center py-4 mb-3">
+            <p class="text-muted mb-3">You haven't saved any addresses yet.</p>
+          </div>
+        {% endif %}
+
+        <a href="{% url 'accounts:address_add' %}" class="btn">Add new address</a>
+      </section>
+
+      <section id="settings" class="account-section" hidden>
+        <h2 class="account-section-title">Account settings</h2>
+        <p class="account-desc text-muted small mb-3">Manage your password and sign out.</p>
+
+        <div class="account-card">
+          <h3 class="account-subtitle">Change password</h3>
+          <p class="account-desc text-muted small mb-3">Update your password to keep your account secure.</p>
+          <a href="{% url 'accounts:password_change' %}" class="btn btn-outline">Change password</a>
+        </div>
+
+        <div class="account-card">
+          <h3 class="account-subtitle">Sign out</h3>
+          <p class="account-desc text-muted small mb-3">Sign out of your account on this device.</p>
+          <form action="{% url 'accounts:logout' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn">Log out</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var sections = document.querySelectorAll('.account-section');
+  var links = document.querySelectorAll('.account-nav-link');
+
+  function showSection(id) {
+    sections.forEach(function(s) {
+      s.hidden = (s.id !== id);
+    });
+    links.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('data-section') === id);
+    });
+    if (id) window.location.hash = id;
+  }
+
+  links.forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      showSection(a.getAttribute('data-section'));
+    });
+  });
+
+  var hash = window.location.hash.slice(1);
+  if (hash && document.getElementById(hash)) {
+    showSection(hash);
+  } else {
+    showSection('details');
+  }
+})();
+</script>
+{% endblock %}

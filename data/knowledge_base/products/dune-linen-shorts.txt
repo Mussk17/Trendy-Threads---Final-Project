@@ -1,0 +1,65 @@
+---
+product:
+  id: 108
+  name: "Dune Linen Shorts"
+  brand: "North & Nook"
+  category: "Bottoms"
+  price_range: "£42.00–£44.00"
+  sizes: ['XS', 'S', 'M', 'L']
+  colors: ['Natural', 'Stone']
+  sku_prefix: "108-"
+---
+
+# Dune Linen Shorts
+
+## Quick facts
+- **Price:** £42.00–£44.00
+- **Available sizes:** XS, S, M, L
+- **Available colors:** Natural, Stone
+- **Materials:** 100% linen, garment-washed.
+- **Care:** Cold wash; hang dry; warm iron if needed.
+
+## Description
+Light linen shorts with a comfortable elastic back waist and deep pockets.
+
+## Features
+- Garment-washed linen
+- Elastic back waist
+- Deep pockets
+- Lightweight
+
+## Fit & sizing
+**Fit notes:** Easy fit with elastic back waist. True to size.
+
+**Size reference (body measurements):**
+- **XS**: Chest 82–86 cm | Waist 62–66 cm | Hips 86–90 cm
+- **S**: Chest 87–91 cm | Waist 67–71 cm | Hips 91–95 cm
+- **M**: Chest 92–96 cm | Waist 72–76 cm | Hips 96–100 cm
+- **L**: Chest 97–103 cm | Waist 77–83 cm | Hips 101–107 cm
+
+## Delivery
+- **Standard (UK):** 2–4 business days (UK)
+- **Express (UK):** 1–2 business days (UK)
+- **International:** 5–10 business days (varies by destination)
+
+## Returns & exchanges
+- **Return window:** 30 days from delivery
+- **Condition:** Unworn, unwashed, tags attached; hygiene seals intact where applicable
+- **Refund timing:** Refunds processed within 5 business days after inspection
+- **Exchanges:** Free size exchange (UK) subject to stock
+
+## FAQ (product-specific)
+**Q: Will the color look exactly the same as photos?**  
+A: Lighting and screen settings can vary. If you’re unsure, choose a neutral color option or contact support for guidance.
+
+**Q: How do I pick a size if I’m between two?**  
+A: Follow the fit notes above. If you want a closer fit, pick the smaller size; for a relaxed fit or layering, pick the larger size.
+
+## Materials & comfort notes
+- This item is designed to feel comfortable for all-day wear.
+- Fabric performance depends on care; follow the care instructions above to maintain shape and color.
+- For sensitive skin, we recommend washing once before first wear.
+
+## What’s in the box
+- 1 × Dune Linen Shorts
+- Care label attached on garment

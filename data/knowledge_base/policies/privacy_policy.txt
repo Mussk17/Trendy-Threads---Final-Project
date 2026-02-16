@@ -1,0 +1,22 @@
+# Privacy Policy (Short, Academic Demo)
+
+## What we collect
+- Account info (name, email) if you register
+- Shipping/billing addresses for order fulfilment
+- Order and payment metadata (processed via Stripe)
+- Basic analytics events (optional)
+
+## How we use it
+- To process orders and returns
+- To provide customer support
+- To improve the website experience (analytics)
+
+## Payments
+- Card payments are processed by Stripe.
+- We do not store full card details.
+
+## Data retention
+- Order history may be kept for accounting and customer support purposes.
+
+## Contact
+If you have privacy questions, contact support through the site’s contact form.

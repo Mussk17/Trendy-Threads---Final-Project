@@ -1,0 +1,457 @@
+/**
+ * Trendy Threads – Components: buttons, cards, forms, product tiles, utilities
+ */
+
+.dropdown-panel {
+  display: block;
+}
+
+.mega-panel {
+  display: grid;
+}
+
+.cart-dropdown-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+}
+
+.cart-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.cart-dropdown-item img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.cart-dropdown-total {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Buttons – monochrome, rounded */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  background: var(--text);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+  color: white;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  background: var(--accent-light);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Filter / category pills */
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-pills .btn,
+.filter-pills .btn-outline {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  background: var(--accent-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.filter-pills .btn:hover,
+.filter-pills .btn-outline:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.filter-pills .btn:not(.btn-outline) {
+  background: var(--text);
+  color: white;
+  border-color: var(--text);
+}
+
+/* Sidebar "Filters" title */
+.filters-sidebar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+  color: var(--heading);
+}
+
+/* Sidebar filter block */
+.filter-block {
+  margin-bottom: 1.5rem;
+}
+
+.filter-block-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.size-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.size-pills a,
+.size-pills button {
+  min-width: 2.25rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.size-pills a:hover,
+.size-pills button:hover {
+  border-color: var(--text-muted);
+  background: var(--accent-light);
+}
+
+.size-pills a.active,
+.size-pills button.active {
+  background: var(--text);
+  color: white;
+  border-color: var(--text);
+}
+
+/* Breadcrumbs */
+.breadcrumb-shop {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.breadcrumb-shop a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb-shop a:hover {
+  color: var(--text);
+}
+
+/* Inline search bar (shop page) */
+.shop-search-bar {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  max-width: 320px;
+}
+
+.shop-search-bar:focus-within {
+  border-color: var(--text);
+  box-shadow: 0 0 0 1px var(--text);
+}
+
+.shop-search-bar input {
+  flex: 1;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  border: none;
+  font-size: 0.875rem;
+  background: transparent;
+}
+
+.shop-search-bar input:focus {
+  outline: none;
+}
+
+.shop-search-bar .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+}
+
+/* Cards & product grid */
+.card-hover {
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.card-hover:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  border-color: var(--border) !important;
+}
+
+.card-hover:focus-within {
+  box-shadow: 0 0 0 2px var(--border);
+}
+
+.product-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 220px;
+  background: var(--border-light);
+  overflow: hidden;
+}
+
+.product-img-wrap .product-img-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  background: var(--placeholder-bg);
+  position: absolute;
+  inset: 0;
+}
+
+.product-img-placeholder-name,
+.product-img-placeholder-meta,
+.product-img-placeholder-color {
+  display: none;
+}
+
+.product-img-placeholder-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--text) !important;
+}
+
+.product-card .product-img-wrap {
+  overflow: hidden;
+}
+
+.product-card .product-img-wrap img {
+  transition: transform 0.3s ease;
+}
+
+.product-card-link:hover .product-img-wrap img {
+  transform: scale(1.05);
+}
+
+.product-card-link .view-product-hint {
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+
+.product-card-link:hover .view-product-hint {
+  opacity: 1;
+}
+
+/* Typography – bold uppercase for shop */
+.page-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+}
+
+/* Forms & focus */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 0;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: var(--border);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border);
+}
+
+.empty-state .btn {
+  margin-top: 1rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-card,
+.card-hover.product-card {
+  animation: fadeInUp 0.45s ease-out backwards;
+}
+
+.product-grid-reveal .col:nth-child(1) .product-card { animation-delay: 0.05s; }
+.product-grid-reveal .col:nth-child(2) .product-card { animation-delay: 0.1s; }
+.product-grid-reveal .col:nth-child(3) .product-card { animation-delay: 0.15s; }
+.product-grid-reveal .col:nth-child(4) .product-card { animation-delay: 0.2s; }
+.product-grid-reveal .col:nth-child(5) .product-card { animation-delay: 0.25s; }
+.product-grid-reveal .col:nth-child(6) .product-card { animation-delay: 0.3s; }
+.product-grid-reveal .col:nth-child(7) .product-card { animation-delay: 0.35s; }
+.product-grid-reveal .col:nth-child(8) .product-card { animation-delay: 0.4s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sale-banner {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.sale-banner a:hover {
+  opacity: 0.9;
+}
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  z-index: 90;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent-hover);
+  color: white;
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* HTMX indicator */
+.htmx-request .htmx-indicator {
+  opacity: 1;
+}
+
+.htmx-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

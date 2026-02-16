@@ -1,0 +1,15 @@
+{% comment %}
+  Product image with fallback placeholder (name, category, brand, color strip).
+  Usage: {% include "products/_product_image_placeholder.html" with product=product image=first_image only %}
+{% endcomment %}
+<div class="product-img-wrap">
+  {% if image %}
+  <img class="product-img-real" src="{{ image.image_url }}" alt="{{ product.name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  {% endif %}
+  <div class="product-img-placeholder" style="display: {% if image %}none{% else %}flex{% endif %};">
+    <span class="product-img-placeholder-name">{{ product.name }}</span>
+    <span class="product-img-placeholder-meta">{{ product.category.name }} · {{ product.brand.name }}</span>
+    {% if product.get_first_color %}<span class="product-img-placeholder-color">{{ product.get_first_color }}</span>{% endif %}
+    <span class="product-img-placeholder-bar"></span>
+  </div>
+</div>

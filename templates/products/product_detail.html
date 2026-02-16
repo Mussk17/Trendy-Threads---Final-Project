@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ product.name }} – Trendy Threads{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row g-4 align-items-start">
+  <div class="col-md-6 product-gallery">
+    <div class="main-wrap mb-3">
+      {% if images %}
+      <div class="product-img-wrap rounded-3 overflow-hidden shadow-sm">
+        <img id="main-image" class="zoomable product-img-real w-100" src="{{ images.0.image_url }}" alt="{{ product.name }}" style="aspect-ratio: 1; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="display: none;">
+          <span class="product-img-placeholder-name">{{ product.name }}</span>
+          <span class="product-img-placeholder-meta">{{ product.category.name }} · {{ product.brand.name }}</span>
+          {% if product.get_first_color %}<span class="product-img-placeholder-color">{{ product.get_first_color }}</span>{% endif %}
+          <span class="product-img-placeholder-bar"></span>
+        </div>
+      </div>
+      <div class="thumbnails d-flex gap-2 flex-wrap mt-2">
+        {% for image in images %}
+        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}" data-full="{{ image.image_url }}" onclick="document.getElementById('main-image').src=this.dataset.full; document.getElementById('main-image').style.display='block'; document.getElementById('main-image').nextElementSibling.style.display='none'; document.querySelectorAll('.thumbnails img').forEach(function(i){ i.style.borderColor='var(--border-light)'; }); this.style.borderColor='var(--text)';" class="rounded" style="width: 72px; height: 72px; object-fit: cover; cursor: pointer; border: 2px solid {% if forloop.first %}var(--text){% else %}var(--border-light){% endif %};">
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="product-img-wrap rounded-3 overflow-hidden">
+        <div class="product-img-placeholder" style="display: flex;">
+          <span class="product-img-placeholder-name">{{ product.name }}</span>
+          <span class="product-img-placeholder-meta">{{ product.category.name }} · {{ product.brand.name }}</span>
+          {% if product.get_first_color %}<span class="product-img-placeholder-color">{{ product.get_first_color }}</span>{% endif %}
+          <span class="product-img-placeholder-bar"></span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-md-6">
+    <p class="small text-uppercase text-muted mb-1" style="letter-spacing: 0.08em;">{{ product.category.name }}</p>
+    <h1 class="page-title h2">{{ product.name }}</h1>
+    <p class="text-muted mb-2">{{ product.brand.name }} · {{ product.category.name }}</p>
+    <p class="h4 fw-semibold mb-2" id="product-price" style="color: var(--text);">Select size and color</p>
+    <p id="urgency-msg" class="urgency-msg text-danger small fw-medium mb-2" style="display: none;"></p>
+    <p id="selected-sku" class="small text-muted mb-3" style="display: none;">SKU: <span id="sku-value"></span></p>
+
+    <div class="mb-4">
+      <h3 class="small fw-semibold text-uppercase text-muted mb-2" style="letter-spacing: 0.05em;">Description</h3>
+      <p class="lh-base">{{ product.description }}</p>
+    </div>
+
+    <div class="card product-details-block border shadow-none mb-4" style="background: var(--bg);">
+      <div class="card-body">
+        <h3 class="small fw-semibold text-uppercase text-muted mb-3" style="letter-spacing: 0.05em;">Details &amp; care</h3>
+        {% if product.material_summary %}
+        <p class="mb-2 small"><strong>Material:</strong> {{ product.material_summary }}</p>
+        {% endif %}
+        {% if product.care_summary %}
+        <p class="mb-2 small"><strong>Care:</strong> {{ product.care_summary }}</p>
+        {% endif %}
+        <p id="variant-weight" class="mb-0 small" style="display: none;"><strong>Weight:</strong> <span id="weight-value"></span> g (for selected size)</p>
+      </div>
+    </div>
+
+    <form action="{% url 'products:wishlist_add' product.id %}" method="post" class="d-inline-block mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <button type="submit" class="btn btn-outline btn-sm">❤️ Save for later</button>
+    </form>
+
+    <form id="add-to-cart-form" action="" method="post" class="mt-2" data-cart-add-url="{% url 'cart:cart_add' 0 %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <input type="hidden" name="variant_id" id="selected-variant-id" value="">
+
+      <div class="mb-3">
+        <label class="form-label fw-medium">Size</label>
+        <select name="size" id="size-select" class="form-select" required>
+          <option value="">Select size</option>
+        </select>
+        <a href="#" class="small mt-1 d-inline-block open-size-chart-popup" style="color: var(--text);">View size chart</a>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-medium">Color</label>
+        <div id="color-swatches" class="mb-2"></div>
+        <select name="color" id="color-select" class="form-select" required>
+          <option value="">Select color</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-medium">Quantity</label>
+        <div class="d-flex align-items-center gap-2">
+          <input type="number" name="quantity" id="quantity-input" value="1" min="1" class="form-control" style="width: 100px;" required>
+          <span id="stock-info" class="small text-muted"></span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-add-cart" id="add-to-cart-btn" disabled aria-label="Add to cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="btn-add-cart-text">Add to cart</span>
+      </button>
+      <p id="variant-error" class="small text-danger mt-2" style="display: none;"></p>
+    </form>
+
+    <div id="size-guide" class="size-guide-wrap card border shadow-none mt-4" style="background: var(--bg);">
+      <div class="card-body">
+        <h3 class="h6 mb-2">Size chart</h3>
+        <p class="small text-muted mb-2">Chest, waist, hip &amp; length in inches (UK-centric). <a href="#" class="open-size-chart-popup" style="color: var(--text); font-weight: 500;">Open full size chart image</a> · Not sure? <a href="#support" id="support-size" style="color: var(--text);">Ask in Support</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="reviews-placeholder card border shadow-none mt-5">
+  <div class="card-body">
+    <h2 class="h5 mb-2">Reviews</h2>
+    <p class="text-muted mb-1">No reviews yet. Be the first to review this product!</p>
+    <p class="small mb-0">★★★★★ (0)</p>
+  </div>
+</div>
+
+<!-- Size chart popup -->
+<div class="modal fade" id="sizeChartModal" tabindex="-1" aria-labelledby="sizeChartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow" style="background: var(--bg); color: var(--text);">
+      <div class="modal-header border-0 pb-0">
+        <h2 class="modal-title h6" id="sizeChartModalLabel">Size charts</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-2">
+        <p class="small text-muted mb-3">Body measurements (cm) and UK / EU / US conversions.</p>
+        <div class="d-flex flex-column gap-4">
+          <div>
+            <p class="small fw-semibold mb-2">Body measurements (cm)</p>
+            <img src="{% static 'images/size-guide/size_guide_body_measurements_cm.png' %}" alt="Size guide — body measurements (cm)" class="img-fluid rounded border" style="max-width: 100%; border-color: var(--border-light) !important;">
+          </div>
+          <div>
+            <p class="small fw-semibold mb-2">Conversions (UK, EU, US)</p>
+            <img src="{% static 'images/size-guide/size_guide_conversions.png' %}" alt="Size guide — conversions (UK, EU, US)" class="img-fluid rounded border" style="max-width: 100%; border-color: var(--border-light) !important;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const variants = [
+    {% for variant in variants %}
+    { id: {{ variant.id }}, size: '{{ variant.size }}', color: '{{ variant.color }}', price: '{{ variant.price }}', stock: {{ variant.stock_qty }}, sku: '{{ variant.sku }}', weight_g: {{ variant.weight_g|default:0 }} }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  const colorNames = [...new Set(variants.map(v => v.color))].sort();
+  const swatchColors = {
+    White: '#f5f5f0', Ivory: '#fffff0', Cream: '#fffdd0', Black: '#1a1a1a', Ink: '#1a1a2e', Midnight: '#191970',
+    Navy: '#1e3a5f', Sand: '#c4b8a8', Natural: '#d4c4a8', Stone: '#b8a88c', Oat: '#d4c49c', Sky: '#87ceeb',
+    Charcoal: '#4a4a4a', 'Heather Grey': '#6b6b6b', Grey: '#888', Gray: '#888', Rose: '#e8b4b8', Olive: '#6b8e23',
+    Forest: '#228b22', Sage: '#9dc183', Khaki: '#c3b091', Emerald: '#2e8b57', Rust: '#b7410e', Camel: '#c19a6b',
+    Indigo: '#4b0082', Red: '#b84545', Blue: '#1565c0', Pink: '#f8bbd9', Brown: '#5d4037', Beige: '#d4b896', Tan: '#d2b48c'
+  };
+
+  const sizeSelect = document.getElementById('size-select');
+  const colorSelect = document.getElementById('color-select');
+  const quantityInput = document.getElementById('quantity-input');
+  const variantIdInput = document.getElementById('selected-variant-id');
+  const priceDisplay = document.getElementById('product-price');
+  const stockInfo = document.getElementById('stock-info');
+  const urgencyMsg = document.getElementById('urgency-msg');
+  const addToCartBtn = document.getElementById('add-to-cart-btn');
+  const variantError = document.getElementById('variant-error');
+  const form = document.getElementById('add-to-cart-form');
+
+  const sizes = [...new Set(variants.map(v => v.size))].sort();
+  sizes.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    sizeSelect.appendChild(o);
+  });
+  colorNames.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    colorSelect.appendChild(o);
+  });
+
+  const swatchContainer = document.getElementById('color-swatches');
+  colorNames.forEach(color => {
+    const swatch = document.createElement('span');
+    swatch.className = 'color-swatch';
+    swatch.title = color;
+    swatch.style.background = swatchColors[color] || '#ccc';
+    swatch.addEventListener('click', function() {
+      colorSelect.value = color;
+      document.querySelectorAll('#color-swatches .color-swatch').forEach(function(s) { s.classList.remove('active'); });
+      this.classList.add('active');
+      updateVariantInfo();
+    });
+    swatchContainer.appendChild(swatch);
+  });
+
+  function findVariant() {
+    const size = sizeSelect.value, color = colorSelect.value;
+    if (!size || !color) return null;
+    return variants.find(v => v.size === size && v.color === color);
+  }
+
+  function updateVariantInfo() {
+    const variant = findVariant();
+    variantError.style.display = 'none';
+    urgencyMsg.style.display = 'none';
+
+    if (!variant) {
+      priceDisplay.textContent = 'Select size and color';
+      stockInfo.textContent = '';
+      addToCartBtn.disabled = true;
+      variantIdInput.value = '';
+      var skuEl = document.getElementById('selected-sku');
+      if (skuEl) skuEl.style.display = 'none';
+      var weightEl = document.getElementById('variant-weight');
+      if (weightEl) weightEl.style.display = 'none';
+      return;
+    }
+    if (variant.stock === 0) {
+      priceDisplay.textContent = 'Out of stock';
+      stockInfo.textContent = 'Out of stock';
+      addToCartBtn.disabled = true;
+      variantIdInput.value = '';
+      variantError.textContent = 'This variant is out of stock';
+      variantError.style.display = 'block';
+      var skuEl = document.getElementById('selected-sku');
+      if (skuEl) skuEl.style.display = 'none';
+      var weightEl = document.getElementById('variant-weight');
+      if (weightEl) weightEl.style.display = 'none';
+      return;
+    }
+
+    priceDisplay.textContent = '$' + variant.price;
+    stockInfo.textContent = variant.stock + ' in stock';
+    if (variant.stock <= 3) {
+      urgencyMsg.textContent = 'Only ' + variant.stock + ' left — order soon!';
+      urgencyMsg.style.display = 'block';
+    }
+    quantityInput.max = variant.stock;
+    if (parseInt(quantityInput.value) > variant.stock) quantityInput.value = variant.stock;
+    addToCartBtn.disabled = false;
+    variantIdInput.value = variant.id;
+    var skuEl = document.getElementById('selected-sku');
+    var skuVal = document.getElementById('sku-value');
+    if (skuEl && skuVal) { skuVal.textContent = variant.sku; skuEl.style.display = 'block'; }
+    var weightEl = document.getElementById('variant-weight');
+    var weightVal = document.getElementById('weight-value');
+    if (weightEl && weightVal && variant.weight_g) { weightVal.textContent = variant.weight_g; weightEl.style.display = 'block'; }
+    else if (weightEl) weightEl.style.display = 'none';
+  }
+
+  sizeSelect.addEventListener('change', updateVariantInfo);
+  colorSelect.addEventListener('change', function() {
+    var val = this.value;
+    document.querySelectorAll('#color-swatches .color-swatch').forEach(function(s, i) {
+      s.classList.toggle('active', colorNames[i] === val);
+    });
+    updateVariantInfo();
+  });
+  quantityInput.addEventListener('change', function() {
+    const v = findVariant();
+    if (v && parseInt(this.value) > v.stock) this.value = v.stock;
+  });
+
+  form.addEventListener('submit', function(e) {
+    const variant = findVariant();
+    if (!variant || variant.stock === 0) {
+      e.preventDefault();
+      variantError.textContent = 'Please select a valid variant';
+      variantError.style.display = 'block';
+      return;
+    }
+    variantError.style.display = 'none';
+    addToCartBtn.disabled = true;
+    addToCartBtn.classList.add('is-loading');
+    variantIdInput.value = variant.id;
+    form.action = form.getAttribute('data-cart-add-url').replace(/\/0\/?$/, '/' + variant.id + '/');
+    form.submit();
+  });
+
+  document.getElementById('support-size') && document.getElementById('support-size').addEventListener('click', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('chatbot-toggle');
+    if (btn) btn.click();
+  });
+
+  document.querySelectorAll('.open-size-chart-popup').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var modal = new bootstrap.Modal(document.getElementById('sizeChartModal'));
+      modal.show();
+    });
+  });
+})();
+</script>
+{% endblock %}

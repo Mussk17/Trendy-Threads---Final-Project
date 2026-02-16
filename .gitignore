@@ -1,0 +1,31 @@
+# Environment and secrets (never commit)
+.env
+.env.local
+*.env
+
+# Python
+*.pyc
+__pycache__/
+.venv/
+venv/
+.env/
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+*.log
+local_settings.py
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

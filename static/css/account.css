@@ -1,0 +1,414 @@
+/**
+ * Trendy Threads – Account page: sidebar + main content
+ * Auth forms: Login / Register (ecommerce-style)
+ */
+
+/* ---------- Auth (Login / Register) – form-in-a-box style ---------- */
+.auth-wrap {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.auth-welcome {
+  text-align: center;
+  padding: 1.75rem 1.5rem 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.auth-tab:hover {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.auth-tab.active {
+  color: var(--text);
+  font-weight: 600;
+  background: var(--surface);
+}
+
+.auth-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--text);
+}
+
+.auth-tab-body {
+  padding: 1.75rem 1.5rem 2rem;
+  border-top: none;
+  background: var(--surface);
+}
+
+.auth-panel {
+  display: none;
+}
+
+.auth-panel.active {
+  display: block;
+}
+
+/* Auth form fields – labels above, generous spacing */
+.auth-form .form-row,
+.auth-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-form .form-row:last-of-type,
+.auth-form .form-group:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form .form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.auth-form .form-control {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form .form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-form .form-control:hover {
+  border-color: var(--border-light);
+}
+
+.auth-form .form-control:focus {
+  border-color: var(--text);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
+}
+
+.auth-form .btn {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  background: var(--text);
+  color: var(--surface);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.05s ease;
+}
+
+.auth-form .btn:hover {
+  background: var(--accent-hover);
+  color: var(--surface);
+}
+
+.auth-form .btn:active {
+  transform: scale(0.99);
+}
+
+.auth-forgot {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-forgot a {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.auth-forgot a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.auth-form .form-error {
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 0.35rem;
+}
+
+.auth-form .form-help {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+
+/* Standalone login/register pages – same bordered form look */
+.auth-standalone .auth-card {
+  max-width: 420px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.auth-standalone .account-card {
+  padding: 2rem 1.75rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.auth-standalone .auth-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-standalone .auth-form .form-group:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.auth-footer a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Account page (profile, sidebar) ---------- */
+.account-page {
+  padding-bottom: 2rem;
+}
+
+.account-page a {
+  text-decoration: none;
+}
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar – distinct panel, no hyperlink look */
+.account-sidebar {
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  position: sticky;
+  top: 5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .account-sidebar {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Nav items – block style, no underline, professional */
+.account-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  text-decoration: none !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+}
+
+.account-nav-link:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text);
+}
+
+.account-nav-link.active {
+  background: var(--text);
+  color: #fff;
+  font-weight: 600;
+}
+
+.account-nav-link.active:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.account-nav-icon {
+  font-size: 1.15rem;
+  opacity: 0.95;
+}
+
+.account-nav-link.active .account-nav-icon {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .account-nav-link {
+    border-radius: var(--radius);
+    padding: 0.55rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  .account-nav-link.active {
+    background: var(--text);
+    color: #fff;
+  }
+}
+
+.account-main {
+  min-width: 0;
+}
+
+.account-section {
+  animation: accountSectionIn 0.2s ease;
+}
+
+@keyframes accountSectionIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.account-section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--heading);
+  letter-spacing: 0.01em;
+}
+
+.account-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.account-subtitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--heading);
+  letter-spacing: 0.02em;
+}
+
+.account-desc {
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.account-form .form-label {
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.account-form .form-control {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+}
+
+.account-form .form-control:focus {
+  border-color: var(--text);
+  box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.08);
+}
+
+.account-form .form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.account-form .btn {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+}
+
+/* Address book */
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.address-card {
+  padding: 1.25rem;
+}
+
+.address-card .address-label {
+  font-size: 1rem;
+  color: var(--heading);
+}
+
+.address-card .address-body {
+  border-top: 1px solid var(--border-light);
+  padding-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.address-card .address-actions .btn-link {
+  text-decoration: underline;
+}
+
+.address-card .address-actions form {
+  display: inline;
+}

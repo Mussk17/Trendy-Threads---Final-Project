@@ -1,0 +1,22 @@
+# Payment Policy
+
+## Accepted payment methods
+- **Card payments via Stripe** (Visa, Mastercard, American Express where supported)
+- **Apple Pay / Google Pay** if enabled in Stripe settings (optional for demo)
+
+## Currency
+- Prices are shown and charged in **GBP (£)** for this academic demo.
+
+## Payment security
+- Payments are processed securely by Stripe.
+- The store does not store full card numbers.
+
+## Payment confirmation
+- After successful payment, you’ll see an order confirmation screen and receive an email receipt (if email is configured).
+
+## Failed payments
+- If your payment fails, try:
+  - Re-entering card details
+  - Using a different card
+  - Contacting your bank
+- If the issue continues, contact support with your order number.

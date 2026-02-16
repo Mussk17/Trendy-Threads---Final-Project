@@ -1,0 +1,82 @@
+/**
+ * Trendy Threads – Monochrome theme (black, white, greys)
+ * Clean e-commerce look
+ */
+
+:root {
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --heading: #0d0d0d;
+  --accent: #1a1a1a;
+  --accent-hover: #333333;
+  --accent-light: #f0f0f0;
+  --border: #e5e5e5;
+  --border-light: #ebebeb;
+  --placeholder-bg: #e5e5e5;
+  --error: #c53030;
+  --sale: #c53030;
+  --success: #2a2a2a;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --transition: 0.2s ease;
+}
+
+/* Bootstrap overrides – monochrome */
+:root {
+  --bs-primary: #1a1a1a;
+  --bs-primary-rgb: 26, 26, 26;
+  --bs-secondary: #6b6b6b;
+  --bs-danger: #c53030;
+  --bs-border-radius: 8px;
+  --bs-border-radius-lg: 12px;
+  --bs-font-sans-serif: 'Outfit', system-ui, sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-bg: #1a1a1a;
+  --bs-btn-border-color: #1a1a1a;
+  --bs-btn-hover-bg: #333;
+  --bs-btn-hover-border-color: #333;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #1a1a1a;
+  --bs-btn-border-color: #1a1a1a;
+  --bs-btn-hover-bg: #1a1a1a;
+  --bs-btn-hover-color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.12);
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+}
+
+.table {
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
+}
+
+/* Keep success/info badges and alerts on theme (no green/cyan) */
+.bg-success,
+.alert-success {
+  background-color: var(--success) !important;
+  border-color: var(--success);
+  color: #fff !important;
+}
+.bg-info {
+  background-color: var(--text-muted) !important;
+  color: #fff !important;
+}
+.text-success {
+  color: var(--text) !important;
+}

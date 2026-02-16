@@ -1,0 +1,141 @@
+/**
+ * Trendy Threads – Product detail page: gallery, color swatches, size guide
+ */
+
+.product-gallery {
+  position: relative;
+}
+
+.product-gallery .main-wrap {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-gallery img.zoomable {
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+}
+
+.product-gallery img.zoomable:hover {
+  transform: scale(1.05);
+}
+
+.product-gallery .thumbnails img {
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease;
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  margin-right: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.color-swatch:hover {
+  border-color: var(--text-muted);
+}
+
+.color-swatch.active {
+  border-color: var(--text);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.size-guide-wrap {
+  margin-top: 1.5rem;
+  padding: 1.15rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+}
+
+/* Add to cart – primary CTA */
+.btn-add-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--text);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-add-cart:hover:not(:disabled) {
+  background: var(--accent-hover);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-add-cart:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-add-cart:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.btn-add-cart:disabled {
+  background: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-add-cart.is-loading {
+  pointer-events: none;
+  color: transparent;
+  position: relative;
+}
+
+.btn-add-cart.is-loading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -0.55em;
+  margin-top: -0.55em;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid var(--text-muted);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-add-cart-spin 0.6s linear infinite;
+}
+
+@keyframes btn-add-cart-spin {
+  to { transform: rotate(360deg); }
+}
+
+.urgency-msg {
+  color: var(--sale);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.reviews-placeholder {
+  margin-top: 2.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}

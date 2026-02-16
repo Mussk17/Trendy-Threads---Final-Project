@@ -1,0 +1,66 @@
+---
+product:
+  id: 102
+  name: "Harbor Linen Shirt"
+  brand: "North & Nook"
+  category: "Tops"
+  price_range: "£58.00–£60.00"
+  sizes: ['XS', 'S', 'M', 'L', 'XL']
+  colors: ['Sand', 'Sky', 'White']
+  sku_prefix: "102-"
+---
+
+# Harbor Linen Shirt
+
+## Quick facts
+- **Price:** £58.00–£60.00
+- **Available sizes:** XS, S, M, L, XL
+- **Available colors:** Sand, Sky, White
+- **Materials:** 55% linen / 45% cotton blend, breathable woven.
+- **Care:** Cold wash; hang dry; warm iron.
+
+## Description
+A button-up that stays airy in warm weather—designed to look crisp or casually rumpled.
+
+## Features
+- Breathable linen blend
+- Button-down front
+- Chest pocket
+- Curved hem
+
+## Fit & sizing
+**Fit notes:** Regular fit through body. If you prefer a roomier, layered look, size up.
+
+**Size reference (body measurements):**
+- **XS**: Chest 82–86 cm | Waist 62–66 cm | Hips 86–90 cm
+- **S**: Chest 87–91 cm | Waist 67–71 cm | Hips 91–95 cm
+- **M**: Chest 92–96 cm | Waist 72–76 cm | Hips 96–100 cm
+- **L**: Chest 97–103 cm | Waist 77–83 cm | Hips 101–107 cm
+- **XL**: Chest 104–110 cm | Waist 84–90 cm | Hips 108–114 cm
+
+## Delivery
+- **Standard (UK):** 2–4 business days (UK)
+- **Express (UK):** 1–2 business days (UK)
+- **International:** 5–10 business days (varies by destination)
+
+## Returns & exchanges
+- **Return window:** 30 days from delivery
+- **Condition:** Unworn, unwashed, tags attached; hygiene seals intact where applicable
+- **Refund timing:** Refunds processed within 5 business days after inspection
+- **Exchanges:** Free size exchange (UK) subject to stock
+
+## FAQ (product-specific)
+**Q: Will the color look exactly the same as photos?**  
+A: Lighting and screen settings can vary. If you’re unsure, choose a neutral color option or contact support for guidance.
+
+**Q: How do I pick a size if I’m between two?**  
+A: Follow the fit notes above. If you want a closer fit, pick the smaller size; for a relaxed fit or layering, pick the larger size.
+
+## Materials & comfort notes
+- This item is designed to feel comfortable for all-day wear.
+- Fabric performance depends on care; follow the care instructions above to maintain shape and color.
+- For sensitive skin, we recommend washing once before first wear.
+
+## What’s in the box
+- 1 × Harbor Linen Shirt
+- Care label attached on garment

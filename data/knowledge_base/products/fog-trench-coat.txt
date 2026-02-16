@@ -1,0 +1,66 @@
+---
+product:
+  id: 112
+  name: "Fog Trench Coat"
+  brand: "North & Nook"
+  category: "Outerwear"
+  price_range: "£120.00–£122.00"
+  sizes: ['XS', 'S', 'M', 'L', 'XL']
+  colors: ['Navy', 'Stone']
+  sku_prefix: "112-"
+---
+
+# Fog Trench Coat
+
+## Quick facts
+- **Price:** £120.00–£122.00
+- **Available sizes:** XS, S, M, L, XL
+- **Available colors:** Navy, Stone
+- **Materials:** 65% cotton / 35% recycled polyester, water-repellent finish.
+- **Care:** Spot clean; dry clean optional.
+
+## Description
+A classic trench silhouette with storm flap and adjustable belt—polished, practical, and timeless.
+
+## Features
+- Water-repellent finish
+- Storm flap
+- Adjustable belt
+- Classic trench shape
+
+## Fit & sizing
+**Fit notes:** Designed for layering; true to size. Size down for a slimmer silhouette.
+
+**Size reference (body measurements):**
+- **XS**: Chest 82–86 cm | Waist 62–66 cm | Hips 86–90 cm
+- **S**: Chest 87–91 cm | Waist 67–71 cm | Hips 91–95 cm
+- **M**: Chest 92–96 cm | Waist 72–76 cm | Hips 96–100 cm
+- **L**: Chest 97–103 cm | Waist 77–83 cm | Hips 101–107 cm
+- **XL**: Chest 104–110 cm | Waist 84–90 cm | Hips 108–114 cm
+
+## Delivery
+- **Standard (UK):** 2–4 business days (UK)
+- **Express (UK):** 1–2 business days (UK)
+- **International:** 5–10 business days (varies by destination)
+
+## Returns & exchanges
+- **Return window:** 30 days from delivery
+- **Condition:** Unworn, unwashed, tags attached; hygiene seals intact where applicable
+- **Refund timing:** Refunds processed within 5 business days after inspection
+- **Exchanges:** Free size exchange (UK) subject to stock
+
+## FAQ (product-specific)
+**Q: Will the color look exactly the same as photos?**  
+A: Lighting and screen settings can vary. If you’re unsure, choose a neutral color option or contact support for guidance.
+
+**Q: How do I pick a size if I’m between two?**  
+A: Follow the fit notes above. If you want a closer fit, pick the smaller size; for a relaxed fit or layering, pick the larger size.
+
+## Materials & comfort notes
+- This item is designed to feel comfortable for all-day wear.
+- Fabric performance depends on care; follow the care instructions above to maintain shape and color.
+- For sensitive skin, we recommend washing once before first wear.
+
+## What’s in the box
+- 1 × Fog Trench Coat
+- Care label attached on garment

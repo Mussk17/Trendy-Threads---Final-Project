@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Wishlist – Trendy Threads{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Wishlist</h1>
+
+{% if products %}
+<div class="row g-4 product-grid-reveal">
+  {% for product in products %}
+  <div class="col-6 col-md-4 col-lg-3">
+    <div class="card card-hover h-100 overflow-hidden position-relative">
+      <form action="{% url 'products:wishlist_remove' product.id %}" method="post" class="position-absolute top-0 end-0 m-2" style="z-index: 2;">
+        {% csrf_token %}
+        <button type="submit" aria-label="Remove from wishlist" class="btn btn-light btn-sm rounded-circle shadow-sm p-2">❤️</button>
+      </form>
+      <a href="{% url 'products:product_detail' slug=product.slug %}" class="text-decoration-none text-dark" hx-boost="false">
+        <div class="product-img-wrap">
+          {% include "products/_product_image_placeholder.html" with product=product image=product.images.first only %}
+        </div>
+        <div class="card-body">
+          <p class="small text-uppercase text-muted mb-1" style="letter-spacing: 0.06em;">{{ product.category.name }}</p>
+          <h3 class="card-title h6 mb-2">{{ product.name }}</h3>
+          <p class="fw-semibold mb-1" style="color: var(--text);">
+            {% if product.get_min_price == product.get_max_price %} ${{ product.get_min_price }}
+            {% else %} ${{ product.get_min_price }} – ${{ product.get_max_price }}{% endif %}
+          </p>
+          <p class="text-muted small mb-0">{{ product.brand.name }}</p>
+        </div>
+      </a>
+      <div class="card-footer bg-transparent border-0 pt-0">
+        <a href="{% url 'products:product_detail' slug=product.slug %}" class="btn w-100 btn-sm" hx-boost="false">Add to cart</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">Your wishlist is empty. Save items you love for later!</p>
+<a href="{% url 'products:product_list' %}" class="btn mt-3" hx-boost="false">Shop now</a>
+{% endif %}
+{% endblock %}

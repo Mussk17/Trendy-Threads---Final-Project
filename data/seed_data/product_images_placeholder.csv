@@ -1,0 +1,31 @@
+image_id,product_id,variant_id,image_url,alt_text,sort_order
+1,101,,/static/images/products/riverside-cotton-tee_1.jpg,Riverside Cotton Tee image 1,1
+2,101,,/static/images/products/riverside-cotton-tee_2.jpg,Riverside Cotton Tee image 2,2
+3,102,,/static/images/products/harbor-linen-shirt_1.jpg,Harbor Linen Shirt image 1,1
+4,102,,/static/images/products/harbor-linen-shirt_2.jpg,Harbor Linen Shirt image 2,2
+5,103,,/static/images/products/maple-ribbed-long-sleeve_1.jpg,Maple Ribbed Long Sleeve image 1,1
+6,103,,/static/images/products/maple-ribbed-long-sleeve_2.jpg,Maple Ribbed Long Sleeve image 2,2
+7,104,,/static/images/products/stone-knit-hoodie_1.jpg,Stone Knit Hoodie image 1,1
+8,104,,/static/images/products/stone-knit-hoodie_2.jpg,Stone Knit Hoodie image 2,2
+9,105,,/static/images/products/ivy-wrap-blouse_1.jpg,Ivy Wrap Blouse image 1,1
+10,105,,/static/images/products/ivy-wrap-blouse_2.jpg,Ivy Wrap Blouse image 2,2
+11,106,,/static/images/products/willow-high-rise-jeans_1.jpg,Willow High-Rise Jeans image 1,1
+12,106,,/static/images/products/willow-high-rise-jeans_2.jpg,Willow High-Rise Jeans image 2,2
+13,107,,/static/images/products/cove-chino-trousers_1.jpg,Cove Chino Trousers image 1,1
+14,107,,/static/images/products/cove-chino-trousers_2.jpg,Cove Chino Trousers image 2,2
+15,108,,/static/images/products/dune-linen-shorts_1.jpg,Dune Linen Shorts image 1,1
+16,108,,/static/images/products/dune-linen-shorts_2.jpg,Dune Linen Shorts image 2,2
+17,109,,/static/images/products/brook-joggers_1.jpg,Brook Joggers image 1,1
+18,109,,/static/images/products/brook-joggers_2.jpg,Brook Joggers image 2,2
+19,110,,/static/images/products/sage-pleated-skirt_1.jpg,Sage Pleated Skirt image 1,1
+20,110,,/static/images/products/sage-pleated-skirt_2.jpg,Sage Pleated Skirt image 2,2
+21,111,,/static/images/products/drift-quilted-jacket_1.jpg,Drift Quilted Jacket image 1,1
+22,111,,/static/images/products/drift-quilted-jacket_2.jpg,Drift Quilted Jacket image 2,2
+23,112,,/static/images/products/fog-trench-coat_1.jpg,Fog Trench Coat image 1,1
+24,112,,/static/images/products/fog-trench-coat_2.jpg,Fog Trench Coat image 2,2
+25,113,,/static/images/products/pine-wool-overcoat_1.jpg,Pine Wool Overcoat image 1,1
+26,113,,/static/images/products/pine-wool-overcoat_2.jpg,Pine Wool Overcoat image 2,2
+27,114,,/static/images/products/summit-puffer-vest_1.jpg,Summit Puffer Vest image 1,1
+28,114,,/static/images/products/summit-puffer-vest_2.jpg,Summit Puffer Vest image 2,2
+29,115,,/static/images/products/harbor-fleece-zip_1.jpg,Harbor Fleece Zip image 1,1
+30,115,,/static/images/products/harbor-fleece-zip_2.jpg,Harbor Fleece Zip image 2,2

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create account – Trendy Threads{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap auth-standalone">
+  <p class="auth-welcome">Create an account to save your details and track orders.</p>
+  <div class="auth-card">
+    <h1 class="page-title text-center mb-0" style="padding: 1.5rem 1.5rem 0.5rem; font-size: 1.35rem;">Create account</h1>
+
+    {% if messages %}
+      <div style="padding: 0 1.5rem;">
+        {% for message in messages %}
+          <div class="alert alert-dismissible fade show {% if message.tags == 'error' %}alert-danger{% else %}alert-primary{% endif %} mb-3" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="account-card" style="margin: 0; border: none; border-radius: 0; box-shadow: none; border-top: 1px solid var(--border-light);">
+      <form method="post" action="" class="auth-form" hx-boost="false">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_first_name" class="form-label">First name</label>
+          <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ form.first_name.value|default:'' }}" placeholder="First name" maxlength="150" required autofocus>
+          {% if form.first_name.errors %}<p class="form-error">{{ form.first_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="id_last_name" class="form-label">Last name</label>
+          <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value|default:'' }}" placeholder="Last name" maxlength="150" required>
+          {% if form.last_name.errors %}<p class="form-error">{{ form.last_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="id_email" class="form-label">Email</label>
+          <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value|default:'' }}" placeholder="Email" required>
+          {% if form.email.errors %}<p class="form-error">{{ form.email.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="id_password1" class="form-label">Password</label>
+          <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Create a password" autocomplete="new-password" required>
+          {% if form.password1.errors %}<p class="form-error">{{ form.password1.errors.0 }}</p>{% endif %}
+          {% if form.password1.help_text %}<p class="form-help">{{ form.password1.help_text }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="id_password2" class="form-label">Confirm password</label>
+          <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Confirm your password" autocomplete="new-password" required>
+          {% if form.password2.errors %}<p class="form-error">{{ form.password2.errors.0 }}</p>{% endif %}
+        </div>
+        <button type="submit" class="btn">Create account</button>
+      </form>
+    </div>
+
+    <p class="auth-footer text-muted">
+      Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

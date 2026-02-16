@@ -1,0 +1,468 @@
+/**
+ * Trendy Threads – Layout: top bar, header, main, footer
+ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.55;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Top bar – subtle grey */
+.top-bar {
+  background: var(--text);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.45rem 1.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.top-bar a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  padding-bottom: 0.05rem;
+}
+
+.top-bar a:hover {
+  color: white;
+}
+
+/* Header / Navbar – compact, clean */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header .header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0 1.5rem;
+}
+
+/* Layout: [Logo] [Nav main] … [Search + Actions on right] */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: auto;
+}
+
+.logo-wrap {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.logo-wrap:hover {
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.logo-wordmark {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nav-search {
+  width: 200px;
+  min-width: 160px;
+}
+
+.nav-search form {
+  display: flex;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.nav-search form:focus-within {
+  border-color: var(--text);
+  box-shadow: 0 0 0 1px var(--text);
+}
+
+.nav-search input {
+  flex: 1;
+  padding: 0.5rem 0.85rem;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  background: transparent;
+}
+
+.nav-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.nav-search input:focus {
+  outline: none;
+}
+
+.nav-search button {
+  padding: 0.5rem 0.85rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.nav-search button:hover {
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.nav-search button svg {
+  stroke: currentColor;
+  color: inherit;
+}
+
+.nav-chat-icon {
+  stroke: currentColor;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-main {
+  gap: 0.5rem;
+  margin-left: 2rem;
+}
+.nav-actions { gap: 0.5rem; }
+
+.nav a,
+.nav .nav-link {
+  color: var(--text);
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav a:hover,
+.nav .nav-link:hover {
+  color: var(--text);
+  background: var(--accent-light);
+}
+
+/* Logout button in nav – same look as nav links */
+.nav form button.nav-link {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+.nav a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav .nav-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav .nav-icon svg {
+  stroke: currentColor;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--text);
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  transition: background var(--transition);
+}
+
+.cart-link svg {
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+.cart-link:hover {
+  background: var(--accent-hover);
+  color: white !important;
+}
+
+.cart-link:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.sale-link {
+  color: var(--sale) !important;
+  font-weight: 600;
+}
+
+/* Dropdowns */
+.dropdown-wrap {
+  position: relative;
+}
+
+.dropdown-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.35rem;
+  min-width: 300px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 1.25rem;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.dropdown-wrap:hover .dropdown-panel {
+  display: block;
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mega-wrap {
+  position: relative;
+}
+
+.mega-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem 2rem;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  min-width: 400px;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.mega-wrap:hover .mega-panel {
+  display: grid;
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mega-panel a {
+  display: block;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  transition: color var(--transition);
+}
+
+.mega-panel a:hover {
+  color: var(--text);
+}
+
+.mega-col h4 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
+.locale-select {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* Shop layout: sidebar + main content */
+.shop-layout {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.shop-filters {
+  flex: 0 0 240px;
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+}
+
+.shop-content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 991px) {
+  .shop-layout {
+    flex-direction: column;
+  }
+  .shop-filters {
+    position: static;
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Main content */
+main {
+  padding: 2rem 0;
+  transition: opacity 0.2s ease-in;
+}
+
+main.htmx-swapping {
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+/* Footer */
+.footer {
+  margin-top: 4rem;
+  padding: 3rem 0 2rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.footer .footer-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.footer-grid h4 {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.9rem;
+  text-transform: uppercase;
+}
+
+.footer-grid a {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: block;
+  padding: 0.3rem 0;
+  transition: color var(--transition);
+}
+
+.footer-grid a:hover {
+  color: var(--text);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .header .header-inner {
+    padding: 0 1rem;
+  }
+  .nav-main {
+    margin-left: 1rem;
+  }
+  .header-right {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-light);
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .nav-search {
+    width: 100%;
+    min-width: 0;
+  }
+  .header {
+    padding: 0.75rem 1rem;
+  }
+  .nav a span.text,
+  .nav .nav-link span.text {
+    display: none;
+  }
+  .logo-wordmark {
+    font-size: 1.15rem;
+  }
+}

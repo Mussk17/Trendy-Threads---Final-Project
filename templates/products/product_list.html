@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Shop – Trendy Threads{% endblock %}
+
+{% block content %}
+<form method="get" action="{% if current_category %}{% url 'products:product_list_by_category' category_slug=current_category %}{% else %}{% url 'products:product_list' %}{% endif %}" id="filter-form">
+  <input type="hidden" name="category" value="{{ current_category }}">
+  <div class="shop-layout">
+    <aside class="shop-filters">
+      <h2 class="filters-sidebar-title">Filters</h2>
+
+      <div class="filter-block">
+        <div class="filter-block-title">Size</div>
+        <div class="size-pills">
+          <a href="{% if current_category %}{% url 'products:product_list_by_category' category_slug=current_category %}{% else %}{% url 'products:product_list' %}{% endif %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}{% if selected_brand %}brand={{ selected_brand }}&{% endif %}{% if filter_color %}color={{ filter_color|urlencode }}&{% endif %}{% if filter_min_price %}min_price={{ filter_min_price }}&{% endif %}{% if filter_max_price %}max_price={{ filter_max_price }}&{% endif %}" class="{% if not filter_size %}active{% endif %}">All</a>
+          <button type="submit" name="size" value="XS" class="{% if filter_size == 'XS' %}active{% endif %}">XS</button>
+          <button type="submit" name="size" value="S" class="{% if filter_size == 'S' %}active{% endif %}">S</button>
+          <button type="submit" name="size" value="M" class="{% if filter_size == 'M' %}active{% endif %}">M</button>
+          <button type="submit" name="size" value="L" class="{% if filter_size == 'L' %}active{% endif %}">L</button>
+          <button type="submit" name="size" value="XL" class="{% if filter_size == 'XL' %}active{% endif %}">XL</button>
+          <button type="submit" name="size" value="XXL" class="{% if filter_size == 'XXL' %}active{% endif %}">XXL</button>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block-title">Category</div>
+        <nav class="d-flex flex-column gap-1">
+          <a href="{% url 'products:product_list' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="{% if not current_category %}fw-semibold{% endif %}" style="color: inherit; text-decoration: none; font-size: 0.9rem;">All</a>
+          {% for cat in categories %}
+          <a href="{% url 'products:product_list_by_category' category_slug=cat.slug %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="{% if current_category == cat.slug %}fw-semibold{% endif %}" style="color: inherit; text-decoration: none; font-size: 0.9rem;">{{ cat.name }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block-title">Brand</div>
+        <select name="brand" class="form-select form-select-sm">
+          <option value="">All brands</option>
+          {% for brand in brands %}
+          <option value="{{ brand.id }}" {% if selected_brand == brand.id|stringformat:'s' %}selected{% endif %}>{{ brand.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block-title">Color</div>
+        <select name="color" class="form-select form-select-sm">
+          <option value="">Any</option>
+          {% for c in filter_colors %}
+          <option value="{{ c }}" {% if filter_color == c %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-block-title">Price range</div>
+        <div class="d-flex align-items-center gap-1">
+          <input type="number" name="min_price" value="{{ filter_min_price }}" placeholder="Min" min="0" step="1" class="form-control form-control-sm" style="width: 72px;">
+          <span class="text-muted">–</span>
+          <input type="number" name="max_price" value="{{ filter_max_price }}" placeholder="Max" min="0" step="1" class="form-control form-control-sm" style="width: 72px;">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-sm w-100">Apply filters</button>
+    </aside>
+
+    <div class="shop-content">
+      <nav class="breadcrumb-shop">
+        <a href="{% url 'products:home' %}">Home</a>
+        ›
+        {% if current_category %}
+          <a href="{% url 'products:product_list' %}">Products</a> › {{ current_category|title }}
+        {% else %}
+          Products
+        {% endif %}
+      </nav>
+      <h1 class="page-title">Products</h1>
+
+      <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+        <div class="shop-search-bar">
+          <input type="search" name="q" value="{{ search_query }}" placeholder="Search" aria-label="Search">
+          <button type="submit" class="btn">Search</button>
+        </div>
+        <nav class="filter-pills">
+          <a href="{% url 'products:product_list' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="btn btn-sm {% if not current_category %}btn{% else %}btn-outline{% endif %}">All</a>
+          {% for cat in categories %}
+          <a href="{% url 'products:product_list_by_category' category_slug=cat.slug %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="btn btn-sm {% if current_category == cat.slug %}btn{% else %}btn-outline{% endif %}">{{ cat.name }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+
+      <div class="row g-4 product-grid-reveal">
+        {% for product in products %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="{% url 'products:product_detail' slug=product.slug %}" class="product-card-link text-decoration-none text-dark" hx-boost="false">
+            <div class="card card-hover product-card h-100 overflow-hidden position-relative">
+              <div class="product-img-wrap position-relative">
+                {% include "products/_product_image_placeholder.html" with product=product image=product.images.first only %}
+                {% if product.has_low_stock %}
+                <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="font-size: 0.65rem;">Low stock</span>
+                {% endif %}
+              </div>
+              <div class="card-body d-flex flex-column">
+                <p class="small text-uppercase text-muted mb-1" style="letter-spacing: 0.06em;">{{ product.category.name }}</p>
+                <h3 class="card-title h6 fw-medium mb-2">{{ product.name }}</h3>
+                <p class="fw-semibold mb-1" style="color: var(--text);">
+                  {% if product.get_min_price == product.get_max_price %} ${{ product.get_min_price }}
+                  {% else %} ${{ product.get_min_price }} – ${{ product.get_max_price }}{% endif %}
+                </p>
+                <p class="text-muted small mt-auto mb-1">{{ product.brand.name }}</p>
+                <span class="view-product-hint small fw-medium" style="color: var(--text);">View details →</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <div class="empty-state text-center py-5 px-4 rounded-3">
+            <p class="fw-semibold mb-1">No products match your filters</p>
+            <p class="text-muted mb-3">Try changing search, category, or filters.</p>
+            <a href="{% url 'products:product_list' %}" class="btn" hx-boost="false">Clear filters</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if is_paginated %}
+      <nav class="d-flex justify-content-center align-items-center gap-2 mt-4 pt-3" aria-label="Product pagination">
+        {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if filter_size %}&size={{ filter_size }}{% endif %}{% if filter_color %}&color={{ filter_color|urlencode }}{% endif %}{% if filter_min_price %}&min_price={{ filter_min_price }}{% endif %}{% if filter_max_price %}&max_price={{ filter_max_price }}{% endif %}" class="btn btn-outline btn-sm">Previous</a>{% endif %}
+        <span class="small text-muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if filter_size %}&size={{ filter_size }}{% endif %}{% if filter_color %}&color={{ filter_color|urlencode }}{% endif %}{% if filter_min_price %}&min_price={{ filter_min_price }}{% endif %}{% if filter_max_price %}&max_price={{ filter_max_price }}{% endif %}" class="btn btn-outline btn-sm">Next</a>{% endif %}
+      </nav>
+      {% endif %}
+    </div>
+  </div>
+</form>
+{% endblock %}

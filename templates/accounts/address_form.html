@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }} – Trendy Threads{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="account-page">
+  <p class="mb-3"><a href="{% url 'accounts:profile' %}#addressbook" class="account-back-link">← Back to address book</a></p>
+  <h1 class="page-title mb-4">{{ title }}</h1>
+
+  <div class="account-card" style="max-width: 560px;">
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger mb-3">{{ form.non_field_errors.0 }}</div>
+    {% endif %}
+    <form method="post" class="account-form">
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Label</label>
+          {{ form.label }}
+          {% if form.label.errors %}<p class="text-danger small mb-0">{{ form.label.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">First name</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}<p class="text-danger small mb-0">{{ form.first_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Last name</label>
+          {{ form.last_name }}
+          {% if form.last_name.errors %}<p class="text-danger small mb-0">{{ form.last_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-12">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Address line 1</label>
+          {{ form.address_line1 }}
+          {% if form.address_line1.errors %}<p class="text-danger small mb-0">{{ form.address_line1.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-12">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Address line 2 <span class="text-muted fw-normal">(optional)</span></label>
+          {{ form.address_line2 }}
+        </div>
+        <div class="col-md-5">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">City</label>
+          {{ form.city }}
+          {% if form.city.errors %}<p class="text-danger small mb-0">{{ form.city.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">State / County</label>
+          {{ form.state }}
+          {% if form.state.errors %}<p class="text-danger small mb-0">{{ form.state.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-3">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Postcode</label>
+          {{ form.postal_code }}
+          {% if form.postal_code.errors %}<p class="text-danger small mb-0">{{ form.postal_code.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Country</label>
+          {{ form.country }}
+          {% if form.country.errors %}<p class="text-danger small mb-0">{{ form.country.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-uppercase small fw-semibold" style="letter-spacing: 0.05em;">Phone <span class="text-muted fw-normal">(optional)</span></label>
+          {{ form.phone }}
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            {{ form.is_default }}
+            <label class="form-check-label" for="{{ form.is_default.id_for_label }}">Use as default delivery address</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn">Save address</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.account-form input.form-control,
+.account-form select.form-control { width: 100%; }
+.account-back-link { color: var(--text); font-weight: 500; }
+.account-back-link:hover { color: var(--text); text-decoration: underline !important; }
+</style>
+{% endblock %}

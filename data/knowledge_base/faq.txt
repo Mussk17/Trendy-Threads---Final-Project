@@ -1,0 +1,37 @@
+# Frequently Asked Questions (FAQ)
+
+## Shipping
+**Q: How long does delivery take?**  
+A: UK Standard is typically 2–4 business days after dispatch; UK Express is 1–2 business days; International is usually 5–10 business days.
+
+**Q: Do you provide tracking?**  
+A: Tracking is provided for Express and most International services. Standard UK may be tracked depending on the carrier.
+
+## Returns & refunds
+**Q: What is your return window?**  
+A: You can return eligible items within 30 days of delivery.
+
+**Q: How long do refunds take?**  
+A: After we receive and inspect the return, refunds are typically processed within 5 business days.
+
+**Q: Can I exchange for a different size?**  
+A: Yes—free size exchanges are available in the UK (subject to stock).
+
+## Products & sizing
+**Q: I’m between two sizes—what should I do?**  
+A: Check the product’s “Fit & sizing” section. For a close fit, choose the smaller size; for layering or a relaxed fit, choose the larger size.
+
+**Q: Are your sizes UK sizes?**  
+A: Yes, the size guide uses UK-centric body measurements. If you use EU/US sizes, use the conversion table in the Size Guide.
+
+## Payments
+**Q: What payment methods do you accept?**  
+A: Card payments are processed via Stripe. Apple Pay / Google Pay may be available if enabled.
+
+## Warranty / faults
+**Q: What if an item is faulty or incorrect?**  
+A: Contact support within 7 days of delivery with photos, and we’ll arrange a replacement or refund.
+
+## Support
+**Q: How do I contact support?**  
+A: Use the site’s contact form and include your order number if you have one.
