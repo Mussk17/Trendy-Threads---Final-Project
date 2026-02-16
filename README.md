@@ -19,6 +19,28 @@ A complete Django-based fashion ecommerce site with Stripe payments and AWS Bedr
 - **AWS Bedrock RAG Chatbot**: Support chatbot using AWS Bedrock Knowledge Base
 - **Modern UI**: Clean, responsive design optimized for fashion ecommerce
 
+## Code Organization Map
+
+```
+trendy-threads/
+├── config/           # Django settings, URLs
+├── accounts/         # Auth, profile, addresses
+├── products/         # Catalog, search, wishlist
+├── cart/             # Session cart, line items
+├── orders/           # Checkout, Stripe, webhook
+├── chatbot/          # Bedrock RAG service and API
+├── templates/        # HTML (base, products, cart, orders, chatbot)
+├── static/           # CSS, JS, images
+├── data/             # Seed data
+└── .env.example      # Environment template
+```
+
+- **Views:** Request handling and orchestration
+- **Models:** Data layer and business objects
+- **Services:** `chatbot/services.py` — Bedrock RAG logic
+- **Forms:** `accounts/forms.py` — user and address forms
+- **Context processors:** Cart and nav data for templates
+
 ## Quick Start
 
 ### 1. Setup Environment
