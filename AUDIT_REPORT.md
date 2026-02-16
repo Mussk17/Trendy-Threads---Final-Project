@@ -1,105 +1,216 @@
-# Audit Report — Trendy Threads E-Commerce Project
+# Audit Report – Trendy Threads E-Commerce Project  
 
 **Date:** February 2026  
-**Scope:** Full-stack e-commerce web application (Django, Stripe, AWS Bedrock RAG)  
-**Purpose:** Academic portfolio / demonstration project
-
-
-
-## 1. Testing Guide
-
+**Project:** Trendy Threads (Django E-Commerce with Stripe & AWS Bedrock RAG Chatbot)  
+**Purpose:** Final Year Project Documentation  
 
 ---
 
-## 5. Security and Privacy Checklist
+## Introduction  
 
-| Area | Status |
-|------|--------|
-| Secrets in environment variables | Done |
-| `.env` in `.gitignore` | Done |
-| `.env.example` with placeholders | Done |
-| Stripe webhook signature verification | Done (existing) |
-| Webhook idempotency (order creation) | Done (existing) |
-| Server-side price validation (cart/checkout) | Done (existing) |
-| Login open redirect prevention | Done |
-| CSRF on state-changing views | Done (existing) |
-| X-Frame-Options, X-Content-Type-Nosniff | Done |
-| Input validation (cart, chatbot, payment intent) | Done |
-| AWS credentials from environment | Done (existing) |
-| No sensitive data in logs | Done (no passwords, payment details, API keys) |
-| Password hashing (Django default) | Done (existing) |
-| Session security | Done (Django defaults) |
+This audit report gives an overview of the security, structure, and overall implementation of the Trendy Threads e-commerce web application.  
 
-### Privacy
-
-- Data minimization: only registration and checkout collect PII.
-- Passwords hashed via Django; no raw credentials logged.
-- Payment data handled by Stripe; card data not processed server-side.
-- Chatbot queries sent to Bedrock; no persistent storage of chat content.
-- README updated with privacy approach.
+The goal of this document is to show that the project was developed with security and best practices in mind. Since this is a final-year academic project, the focus is on demonstrating understanding of real-world development standards, especially in areas like payments, authentication, and AI integration.
 
 ---
 
-## 6. Threat Model Summary
+## Project Overview  
 
-### Assets
+Trendy Threads is a full-stack Django-based fashion e-commerce website. It includes:
 
-- User credentials and profile data
-- Payment intent/session identifiers
-- Order records
-- Application logic (cart, checkout, chatbot)
+- User registration and login  
+- Product listing with size and color variants  
+- Session-based shopping cart  
+- Secure payments using Stripe Checkout  
+- AI-powered chatbot using AWS Bedrock (RAG architecture)  
 
-### Attack Surfaces
+The project is divided into different Django apps:
 
-- Authentication (login, registration)
-- Cart (add, update, remove)
-- Checkout and Stripe webhook
-- Chatbot API
-- Admin
+accounts/   → Authentication and profiles  
+products/   → Product catalog and variants  
+cart/       → Cart functionality  
+orders/     → Checkout and Stripe integration  
+chatbot/    → AWS Bedrock RAG logic  
+config/     → Project settings  
 
-### Threats and Mitigations
 
-| Threat | Mitigation |
-|--------|------------|
-| Open redirect after login | `url_has_allowed_host_and_scheme` validation |
-| Client-side cart manipulation | Server-side quantity and price validation |
-| Price tampering | Stripe and cart use server-side prices |
-| Webhook spoofing | Stripe signature verification |
-| Duplicate orders from webhook retries | Idempotency checks on `stripe_session_id` / `stripe_payment_intent_id` |
-| Chatbot prompt injection | Input length limit, control-char stripping, RAG prompt constraints |
-| Bedrock API abuse | Timeout, retry, sanitized input |
-| Sensitive data exposure | Generic error messages, no secrets in logs |
+
+I structured the project this way to keep responsibilities separate and make the code easier to manage and understand.
 
 ---
 
-## 3. Code Organization Map
+## 🔐 Security Review  
 
-```
-trendy-threads/
-├── config/           # Django settings, URLs
-├── accounts/         # Auth, profile, addresses
-├── products/         # Catalog, search, wishlist
-├── cart/             # Session cart, line items
-├── orders/           # Checkout, Stripe, webhook
-├── chatbot/          # Bedrock RAG service and API
-├── templates/        # HTML (base, products, cart, orders, chatbot)
-├── static/           # CSS, JS, images
-├── data/             # Seed data
-└── .env.example      # Environment template
-```
+Since this is an e-commerce system, security was one of the main considerations during development.
 
-- **Views:** Request handling and orchestration
-- **Models:** Data layer and business objects
-- **Services:** `chatbot/services.py` — Bedrock RAG logic
-- **Forms:** `accounts/forms.py` — user and address forms
-- **Context processors:** Cart and nav data for templates
+### 1️⃣ Environment Variables & Secrets  
+
+All sensitive information such as:
+
+- Django secret key  
+- Stripe API keys  
+- AWS credentials  
+
+are stored in a `.env` file and loaded using environment variables.
+
+- `.env` is included in `.gitignore`
+- `.env.example` is provided with placeholder values  
+
+This prevents sensitive data from being exposed in the GitHub repository.
+
+### 2️⃣ Authentication Security  
+
+- Passwords are securely hashed using Django’s built-in system.
+- I added validation to prevent open redirect attacks during login.
+- Django’s default session management is used.
+
+**Password hashing** means passwords are not stored in plain text. Instead, they are converted into a secure format that cannot easily be reversed.
+
+### 3️⃣ Stripe Payment Security  
+
+Stripe Checkout is used for payments. This means:
+
+- Users enter card details on Stripe’s secure hosted page.
+- The application never stores or processes card data directly.
+
+This significantly reduces security risks.
+
+#### Webhook Protection  
+
+Stripe sends a webhook to confirm successful payment.
+
+The system includes:
+
+- Signature verification to ensure the request is from Stripe.
+- Idempotency checks to prevent duplicate orders if Stripe retries the webhook.
+
+**Idempotency** means the same event will not create multiple orders even if processed more than once.
+
+### 4️⃣ Server-Side Validation  
+
+The system does not trust client-side data.
+
+For example:
+
+- Cart quantities are validated on the server.
+- Prices are calculated server-side.
+- Checkout totals are verified before payment.
+- Chatbot input has length limits and basic sanitization.
+
+This prevents manipulation through browser tools.
+
+### 5️⃣ CSRF & Security Headers  
+
+The application includes:
+
+- CSRF protection for forms  
+- X-Frame-Options  
+- X-Content-Type-Options  
+
+**CSRF (Cross-Site Request Forgery)** is when a malicious site tries to make a user perform actions without their permission. Django provides built-in protection for this.
 
 ---
 
-## 8. Remaining Considerations
+## 🤖 AI & Cloud Integration  
 
-- **Rate limiting:** Not implemented; consider for auth and chatbot in production.
-- **CSP:** Content-Security-Policy not configured; evaluate if stricter CSP is needed.
-- **Database:** SQLite used for development; PostgreSQL recommended for production.
-- **Static files:** Use `collectstatic` and a static file server in production.
-- **Environment:** Rotate any exposed credentials from `.env` if the file was ever committed or shared.
+The chatbot uses AWS Bedrock with Retrieval-Augmented Generation (RAG).
+
+### How it works:
+
+1. Knowledge documents are uploaded to an Amazon S3 bucket.
+2. AWS Bedrock creates a Knowledge Base from those documents.
+3. When a user asks a question:
+   - Relevant information is retrieved.
+   - The Claude model generates a contextual response.
+
+**RAG (Retrieval-Augmented Generation)** means the AI first retrieves relevant information before generating a response. This improves accuracy and reduces incorrect answers.
+
+Security considerations:
+
+- AWS credentials are stored in environment variables.
+- Chatbot inputs are sanitized.
+- Chat conversations are not permanently stored.
+
+---
+
+## 🔎 Threat Model (Basic Overview)  
+
+### Main Assets  
+
+- User credentials  
+- Order records  
+- Payment session IDs  
+- Application logic  
+
+### Possible Risks  
+
+- Login manipulation  
+- Cart price tampering  
+- Fake webhook calls  
+- Chatbot misuse  
+
+### Mitigations Implemented  
+
+| Risk | Protection |
+|------|------------|
+| Open redirect | URL validation |
+| Price tampering | Server-side price validation |
+| Fake webhook | Stripe signature verification |
+| Duplicate orders | Idempotency checks |
+| Prompt injection | Input sanitization |
+
+---
+
+## 🗄️ Database & Data Handling  
+
+The project uses:
+
+- SQLite for development  
+- PostgreSQL recommended for production  
+
+Main relational models include:
+
+- Brand  
+- Category (hierarchical)  
+- Product  
+- ProductVariant  
+- Order  
+- OrderItem  
+
+For AI functionality:
+
+- Knowledge documents are stored in Amazon S3.
+- AWS Bedrock manages vector indexing separately from the main database.
+
+This shows understanding of both traditional relational databases and modern cloud-based knowledge systems.
+
+---
+
+## 🚀 Production Considerations  
+
+If deployed to production, the following should be done:
+
+- Set `DEBUG = False`
+- Use PostgreSQL
+- Enable HTTPS
+- Rotate and secure credentials
+- Run `collectstatic`
+- Consider adding rate limiting
+- Add Content Security Policy (CSP)
+
+These improvements would make the system more secure for real-world usage.
+
+---
+
+## 📊 Final Reflection  
+
+Overall, this project demonstrates:
+
+- Secure authentication practices  
+- Proper Stripe payment integration  
+- Secure webhook handling  
+- Use of environment variables  
+- Integration of AWS Bedrock RAG chatbot  
+- Basic threat modeling awareness  
+
+While it is an academic project, I aimed to follow industry-level best practices wherever possible. The system is structured, secure at a fundamental level, and demonstrates practical understanding of modern e-commerce and AI-based web applications.
